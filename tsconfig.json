@@ -15,7 +15,7 @@
   "include": [
     "./src",
     "App.tsx",
-    "declarations.d.ts"
+    "src/utils/declarations.d.ts"
   ],
   "extends": "expo/tsconfig.base"
 }
