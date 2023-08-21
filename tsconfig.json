@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "ES6",
+    "strictNullChecks": true,
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "strict": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": true
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "./src",
+    "App.tsx",
+    "declarations.d.ts"
+  ],
+  "extends": "expo/tsconfig.base"
+}
