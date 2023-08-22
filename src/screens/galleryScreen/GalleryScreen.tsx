@@ -1,49 +1,23 @@
 import React, { useEffect } from 'react'
 import { Container } from './GalleryScreen.styles'
-import { FlatList, Image, Pressable, Text, View } from 'react-native'
+import { FlatList, Image, Pressable } from 'react-native'
 import BackIcon from '../../../assets/icons/back-black.svg'
+import Title from './Title'
+import { useNavigation } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { StackParamList } from '../../components/Navigation'
 
-interface ITitle {
-	title: string
-	date: string
-}
+const GalleryScreen = ({ route }) => {
+	const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>()
 
-const Title = ({ title, date }: ITitle) => {
-	return (
-		<View>
-			<Text
-				style={{
-					textAlign: 'center',
-					fontFamily: 'dosis-sb',
-					fontSize: 18,
-					lineHeight: 22
-				}}
-			>
-				{title}
-			</Text>
-			<Text
-				style={{
-					textAlign: 'center',
-					fontFamily: 'terminal-dosis',
-					fontSize: 13,
-					lineHeight: 22
-				}}
-			>
-				{date}
-			</Text>
-		</View>
-	)
-}
-
-const GalleryScreen = ({ route, navigation }) => {
 	const { title, photos, date } = route.params
 
 	useEffect(() => {
 		navigation.setOptions({
 			headerTitle: () => <Title title={title} date={date} />,
 			headerLeft: () => (
-				<Pressable onPress={() => navigation.goBack(null)}>
-					<BackIcon width={24} heigth={24} />
+				<Pressable onPress={() => navigation.goBack()}>
+					<BackIcon />
 				</Pressable>
 			)
 		})

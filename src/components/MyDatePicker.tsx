@@ -3,6 +3,7 @@ import DateTimePicker, {
 	DateTimePickerEvent
 } from '@react-native-community/datetimepicker'
 import styled from 'styled-components/native'
+import { Alert } from 'react-native'
 
 const DateTimePickerWrapper = styled.View`
 	position: absolute;
@@ -16,9 +17,19 @@ interface IMyDatePicker {
 }
 
 const MyDatePicker: FC<IMyDatePicker> = ({ date, setDate }) => {
-	function onChange(e: DateTimePickerEvent, date: Date) {
-		if (e.type == 'set') {
-			setDate(date)
+	function onChange(e: DateTimePickerEvent, date: Date | undefined) {
+		try {
+			if (e.type == 'set') {
+				if (date) {
+					setDate(date)
+				} else {
+					throw new TypeError('Date is undefined')
+				}
+			}
+		} catch (e) {
+			if (e instanceof TypeError) {
+				Alert.alert('Error', 'Date is undefined')
+			}
 		}
 	}
 

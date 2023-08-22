@@ -1,7 +1,6 @@
 import styled from 'styled-components/native'
-import { Dimensions } from 'react-native'
 
-export const Container = styled.View`
+export const Container = styled.View<{ height: number }>`
 	flex: 1;
 	justify-content: center;
 	align-items: center;
@@ -9,7 +8,7 @@ export const Container = styled.View`
 	margin-top: ${props => `-${props.height}px`};
 `
 
-export const BgImage = styled.Image`
+export const BgImage = styled.Image<{ variant: boolean }>`
 	width: 100%;
 	max-height: 326px;
 
