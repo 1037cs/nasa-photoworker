@@ -1,5 +1,7 @@
 import React, { FC } from 'react'
-import DateTimePicker from '@react-native-community/datetimepicker'
+import DateTimePicker, {
+	DateTimePickerEvent
+} from '@react-native-community/datetimepicker'
 import styled from 'styled-components/native'
 
 const DateTimePickerWrapper = styled.View`
@@ -14,6 +16,12 @@ interface IMyDatePicker {
 }
 
 const MyDatePicker: FC<IMyDatePicker> = ({ date, setDate }) => {
+	function onChange(e: DateTimePickerEvent, date: Date) {
+		if (e.type == 'set') {
+			setDate(date)
+		}
+	}
+
 	return (
 		<DateTimePickerWrapper>
 			<DateTimePicker
@@ -22,7 +30,7 @@ const MyDatePicker: FC<IMyDatePicker> = ({ date, setDate }) => {
 				value={date}
 				mode='date'
 				display='spinner'
-				onChange={(e, date: Date) => setDate(date)}
+				onChange={onChange}
 			/>
 		</DateTimePickerWrapper>
 	)
