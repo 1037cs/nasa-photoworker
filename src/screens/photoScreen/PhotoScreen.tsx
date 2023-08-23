@@ -1,57 +1,33 @@
 import React, { useEffect } from 'react'
 import { Container, Image } from './Photoscreen.styles'
-import { Pressable, Share, Text, View } from 'react-native'
+import { Pressable, Share } from 'react-native'
 import ShareIcon from '../../../assets/icons/share.svg'
 import BackIcon from '../../../assets/icons/back-white.svg'
-
-const Title = ({ id }) => {
-	return (
-		<View>
-			<Text
-				style={{
-					color: '#FFF',
-					fontFamily: 'terminal-dosis',
-					lineHeight: 22,
-					fontSize: 13,
-					textAlign: 'center'
-				}}
-			>
-				Photo ID
-			</Text>
-			<Text
-				style={{
-					color: '#FFF',
-					fontFamily: 'dosis-sb',
-					lineHeight: 22,
-					fontSize: 18,
-					textAlign: 'center'
-				}}
-			>
-				{id}
-			</Text>
-		</View>
-	)
-}
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { StackParamList } from '../../components/Navigation'
+import { PhotoScreenTitle } from './PhotoScreenTitle'
 
 const onPressHandler = async (url: string) => {
-	const result = await Share.share({
+	await Share.share({
 		url: url
 	})
 }
 
-const PhotoScreen = ({ navigation, route }) => {
+type Props = NativeStackScreenProps<StackParamList, 'Photo'>
+
+const PhotoScreen: React.FC<Props> = ({ navigation, route }) => {
 	const src = route.params.src
 
 	useEffect(() => {
 		navigation.setOptions({
-			headerTitle: () => <Title id={route.params.id} />,
+			headerTitle: () => <PhotoScreenTitle id={route.params.id} />,
 			headerRight: () => (
 				<Pressable onPress={() => onPressHandler(src)}>
 					<ShareIcon />
 				</Pressable>
 			),
 			headerLeft: () => (
-				<Pressable onPress={() => navigation.goBack(null)}>
+				<Pressable onPress={() => navigation.goBack()}>
 					<BackIcon width={24} height={24} />
 				</Pressable>
 			)

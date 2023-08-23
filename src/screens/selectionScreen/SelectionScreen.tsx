@@ -9,14 +9,13 @@ import MyCameraPicker, { cameras } from '../../components/MyCameraPicker'
 import { fetchPhotos } from '../../http/fetchPhotos'
 import { useHeaderHeight } from '@react-navigation/elements'
 import { ActivityIndicator, Alert } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
 import { formatDate, formatDateToAxios } from '../../utils/helpers'
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { StackParamList } from '../../components/Navigation'
 
-const SelectionScreen: FC = () => {
-	const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>()
+type Props = NativeStackScreenProps<StackParamList, 'Selection'>
 
+const SelectionScreen: FC<Props> = ({ navigation }) => {
 	const headerHeight = useHeaderHeight()
 	const [isLoading, setIsLoading] = useState(false)
 
@@ -42,7 +41,7 @@ const SelectionScreen: FC = () => {
 			.then(data => {
 				if (data.length === 0) throw new TypeError()
 				navigation.navigate('Gallery', {
-					title: cameras.find(item => item?.value === camera).label,
+					title: cameras.find(item => item?.value === camera)?.label ?? camera,
 					photos: data,
 					date: formatDate(date)
 				})
@@ -57,7 +56,7 @@ const SelectionScreen: FC = () => {
 
 	if (isLoading)
 		return (
-			<Container>
+			<Container height={headerHeight}>
 				<ActivityIndicator />
 			</Container>
 		)

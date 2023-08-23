@@ -6,12 +6,10 @@ export const ButtonText = styled.Text`
 	font-family: 'dosis-sb';
 `
 
-interface Props {
+export const ButtonPressable = styled.Pressable<{
 	width: string
 	height: string
-}
-
-export const ButtonPressable = styled.Pressable<Props>`
+}>`
 	background-color: #bf2e0e;
 	display: flex;
 	justify-content: center;

@@ -3,13 +3,12 @@ import { Container } from './GalleryScreen.styles'
 import { FlatList, Image, Pressable } from 'react-native'
 import BackIcon from '../../../assets/icons/back-black.svg'
 import Title from './Title'
-import { useNavigation } from '@react-navigation/native'
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { StackParamList } from '../../components/Navigation'
 
-const GalleryScreen = ({ route }) => {
-	const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>()
+type Props = NativeStackScreenProps<StackParamList, 'Gallery'>
 
+const GalleryScreen: React.FC<Props> = ({ navigation, route }) => {
 	const { title, photos, date } = route.params
 
 	useEffect(() => {
@@ -30,11 +29,11 @@ const GalleryScreen = ({ route }) => {
 				renderItem={({ item }) => (
 					<Pressable
 						onPress={() =>
-							navigation.navigate('Photo', { src: item.img_src, id: item.id })
+							navigation.navigate('Photo', { src: item['img_src'], id: item['id'] })
 						}
 					>
 						<Image
-							source={{ uri: item.img_src }}
+							source={{ uri: item['img_src'] }}
 							width={109}
 							height={109}
 							style={{ borderRadius: 10 }}
