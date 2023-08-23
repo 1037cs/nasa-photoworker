@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
-import { Container } from './GalleryScreen.styles'
-import { FlatList, Image, Pressable } from 'react-native'
+import { Container, Image } from './GalleryScreen.styles'
+import { FlatList, Pressable } from 'react-native'
 import BackIcon from '../../../assets/icons/back-black.svg'
 import Title from './Title'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
@@ -26,23 +26,19 @@ const GalleryScreen: React.FC<Props> = ({ navigation, route }) => {
 		<Container>
 			<FlatList
 				data={photos}
+				keyExtractor={item => item['id']}
 				renderItem={({ item }) => (
 					<Pressable
 						onPress={() =>
 							navigation.navigate('Photo', { src: item['img_src'], id: item['id'] })
 						}
 					>
-						<Image
-							source={{ uri: item['img_src'] }}
-							width={109}
-							height={109}
-							style={{ borderRadius: 10 }}
-						/>
+						<Image source={{ uri: item['img_src'] }} />
 					</Pressable>
 				)}
 				horizontal={false}
 				numColumns={3}
-				columnWrapperStyle={{ justifyContent: 'space-between', marginBottom: 8 }}
+				columnWrapperStyle={{ gap: 8, marginBottom: 8 }}
 			/>
 		</Container>
 	)
